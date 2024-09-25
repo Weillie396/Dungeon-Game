@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+
     // Resources for the game
 
     public List<Sprite> playerSprites;
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     // References for the game
     public Player player;
-    // public weapon weapon etc ...
+    public Weapon weapon;
     public FloatingTextManager floatingTextManager;
 
     // Logic for the game
@@ -49,6 +50,23 @@ public class GameManager : MonoBehaviour
      * INT xp
      * INT weaponLevel
      */
+    // Upgrade Weapon
+
+    public bool TryUpgradeWeapon()
+    {
+        // Is the Weapon Max Level
+        if (weaponPrices.Count <= weapon.weaponLevel)
+            return false;
+
+        if(moneyTotal >= weaponPrices[weapon.weaponLevel])
+        {
+            moneyTotal -= weaponPrices[weapon.weaponLevel];
+            weapon.UpgradeWeapon();
+            return true;
+        }
+
+        return false;
+    }
 
     public void SaveState()
     {
@@ -57,7 +75,7 @@ public class GameManager : MonoBehaviour
         s += "0" + "|";
         s += moneyTotal.ToString() + "|";
         s += xpTotal.ToString() + "|";
-        s += "0";
+        s += weapon.weaponLevel.ToString();
 
         PlayerPrefs.SetString("SaveState", s);
     }
@@ -74,6 +92,6 @@ public class GameManager : MonoBehaviour
         // Change player Skin
         moneyTotal = int.Parse(data[1]);
         xpTotal = int.Parse(data[2]);
-        // Change weaponLevel
+        weapon.SetWeaponLevel(int.Parse(data[3]));
     }
 }

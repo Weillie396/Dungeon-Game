@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Mover
 {
 
+
     private void FixedUpdate()
     {
         // Look for input on keyboard
@@ -12,6 +13,7 @@ public class Player : Mover
         float y = Input.GetAxisRaw("Vertical");
 
         UpdateMotor(new Vector3(x, y, 0));
+
     }
 
 }
