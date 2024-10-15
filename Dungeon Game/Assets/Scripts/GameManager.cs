@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Weapon weapon;
     public FloatingTextManager floatingTextManager;
+    public RectTransform hitpointBar;
 
     // Logic for the game
     public int moneyTotal;
@@ -42,14 +43,7 @@ public class GameManager : MonoBehaviour
     {
         floatingTextManager.Show(msg, fontSize, color, position, motion, duration);
     }
-
-    //Save state functions
-    /* 
-     * INT preferedSkin
-     * INT Money
-     * INT xp
-     * INT weaponLevel
-     */
+ 
     // Upgrade Weapon
 
     public bool TryUpgradeWeapon()
@@ -67,6 +61,19 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
+    public void OnHitPointChange()
+    {
+        float ratio = (float)player.hitPoints / (float)player.maxHitpoint;
+        hitpointBar.localScale = new Vector3(ratio, 1, 1);
+    }
+    //Save state functions
+    /* 
+  * INT preferedSkin
+  * INT Money
+  * INT xp
+  * INT weaponLevel
+  */
 
     public void SaveState()
     {
