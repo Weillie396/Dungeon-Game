@@ -7,17 +7,19 @@ public abstract class Mover : Fighter
     protected BoxCollider2D boxCollider;
     protected Vector3 moveDelta;
     protected RaycastHit2D hit;
-    protected float yspeed = 0.75f;
-    protected float xspeed = 1.0f;
+
+    public SpriteRenderer spriteRenderer;
+    public Sprite sprite;
 
     protected virtual void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
     }
-    protected virtual void UpdateMotor(Vector3 input)
+    protected virtual void UpdateMotor(Vector3 input, float xSpeed, float ySpeed)
     {
-        // reset moveDelta
-        moveDelta = new Vector3(input.x * xspeed, input.y * yspeed, 0).normalized;
+
+    // reset moveDelta
+    moveDelta = new Vector3(input.x, input.y, 0).normalized;
 
         // Swap Sprite Direction, whether you are going right or left
 
@@ -39,7 +41,7 @@ public abstract class Mover : Fighter
         if (hit.collider == null)
         {
             // Make the player move
-            transform.Translate(0, moveDelta.y * Time.deltaTime, 0);
+            transform.Translate(0, moveDelta.y * Time.deltaTime * ySpeed, 0);
         }
 
         // Make sure you can move in X direction by casting a box first
@@ -47,7 +49,7 @@ public abstract class Mover : Fighter
         if (hit.collider == null)
         {
             // Make the player move
-            transform.Translate(moveDelta.x * Time.deltaTime, 0, 0);
+            transform.Translate(moveDelta.x * Time.deltaTime * xSpeed, 0, 0);
         }
     }
 }

@@ -14,8 +14,6 @@ public class Fighter : MonoBehaviour
     // Push
     protected Vector3 pushDirection;
 
-    // All fighters acan recieve damage and die
-
     protected virtual void RecieveDamage(Damage dmg) 
     {
         if (Time.time - lastImmune > immuneTime)
@@ -33,6 +31,20 @@ public class Fighter : MonoBehaviour
             }
         }
     }
+    
+    public void AddHealth(int health)
+    {
+        if (hitPoints == maxHitpoint)
+            return;
+
+        int hitPointMissing = maxHitpoint - hitPoints;
+        if (hitPointMissing < health)
+            hitPoints = maxHitpoint;
+        else
+        hitPoints += health;
+        GameManager.instance.OnHitPointChange();
+    }
+    
 
     protected virtual void Death()
     {

@@ -15,6 +15,9 @@ public class Enemy : Mover
     private Transform playerTransform;
     private Vector3 startingPosition;
 
+    public float xSpeedEnemy = 0.3f;
+    public float ySpeedEnemy = 0.3f;
+
     // Hitbox (Used for weapon)
     private BoxCollider2D hitBox;
     private Collider2D[] hits = new Collider2D[10];
@@ -42,17 +45,17 @@ public class Enemy : Mover
             {
                 if(!collidingWithPlayer)
                 {
-                    UpdateMotor((playerTransform.position - transform.position).normalized);
+                    UpdateMotor(playerTransform.position - transform.position,xSpeedEnemy,ySpeedEnemy);
                 }
             }
             else
             {
-                UpdateMotor(startingPosition - transform.position);
+                UpdateMotor(startingPosition - transform.position, xSpeedEnemy, ySpeedEnemy);
             }
         }
         else
         {
-            UpdateMotor(startingPosition - transform.position);
+            UpdateMotor(startingPosition - transform.position, xSpeedEnemy, ySpeedEnemy);
             chasing = false;
         }
 

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Inventory.Model;
 
 public class Collectable : Collidable
 {
-    // logic
+
     protected bool collected;
 
     protected override void OnCollide(Collider2D coll)
@@ -16,6 +15,13 @@ public class Collectable : Collidable
     protected virtual void OnCollect()
     {
         collected = true;
+        GetComponent<Collider2D>().enabled = false;
+        Destroy(gameObject);
     }
+
+
+
+
+
 
 }
