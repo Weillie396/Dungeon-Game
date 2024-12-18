@@ -11,6 +11,12 @@ public class Player : Mover
         GameManager.instance.OnHitPointChange();
     }
 
+    public void AdjustSpeed(int speed)
+    {
+        xSpeedPlayer = xSpeedPlayer * speed;
+        ySpeedPlayer = ySpeedPlayer * speed;
+    }
+
     private void FixedUpdate()
     {
         // Look for input on keyboard

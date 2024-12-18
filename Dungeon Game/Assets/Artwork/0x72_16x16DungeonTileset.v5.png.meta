@@ -1567,7 +1567,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1575,6 +1575,27 @@ TextureImporter:
       bones: []
       spriteID: eaa71ac37c1ae7543a88652e7739172f
       internalID: -672693615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpeedPotion_0
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca184dbd4ca19ef4198637ee112185e3
+      internalID: -1683000988
       vertices: []
       indices: 
       edges: []
@@ -1598,6 +1619,7 @@ TextureImporter:
       Player_1: -449013206
       Potion_1: -2081227639
       Skull_0: -672693615
+      SpeedPotion_0: -1683000988
       Tube_1: 1051732425
       Wall_Corner_BL: 824795965
       Wall_Corner_BR: 1340464671

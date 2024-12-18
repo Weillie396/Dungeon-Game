@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d13164d4e14cb4fbaf6d91484febc6, type: 3}
+  m_Name: Potion
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 3
+  <Name>k__BackingField: Max Health Increase
+  <Description>k__BackingField: Increases your max health by 3
+  <ItemImage>k__BackingField: {fileID: -2081227639, guid: c93d0c4dc0e754648983d2fb335225bd, type: 3}
+  modifiersData:
+  - statModifier: {fileID: 11400000, guid: ee9bb01b4b88f9b4cababf6923815dbc, type: 2}
+    value: 3

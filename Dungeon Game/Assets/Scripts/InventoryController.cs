@@ -1,8 +1,11 @@
 using Inventory.Model;
 using Inventory.UI;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Inventory
 {
@@ -62,9 +65,44 @@ namespace Inventory
             IItemAction itemAction = inventoryItem.item as IItemAction;
             if(itemAction != null)
             {
-                itemAction.PerformAction(gameObject);
+                inventoryUI.ShowItemAction(itemIndex);
+                inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
             }
-            
+
+            IDestoryableItem destroyableItem = inventoryItem.item as IDestoryableItem;
+            if (destroyableItem != null)
+            {
+                inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
+            }
+
+
+        }
+
+        private void DropItem(int itemIndex, int quantity)
+        {
+            inventoryData.RemoveItem(itemIndex, quantity);
+            inventoryUI.ResetSelection();
+        }
+
+        public void PerformAction(int itemIndex)
+        {
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
+
+            IDestoryableItem destroyableItem = inventoryItem.item as IDestoryableItem;
+            if (destroyableItem != null)
+            {
+                inventoryData.RemoveItem(itemIndex, 1);
+            }
+
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if (itemAction != null)
+            {
+                itemAction.PerformAction(gameObject, inventoryItem.itemState);
+                if (inventoryData.GetItemAt(itemIndex).IsEmpty)
+                    inventoryUI.ResetSelection();
+            }
         }
 
         private void HandleDragging(int itemIndex)
@@ -89,7 +127,24 @@ namespace Inventory
             }
 
             ItemSO item = inventoryItem.item;
-            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, item.Description);
+            string description = PrepareDescription(inventoryItem);
+            inventoryUI.UpdateDescription(itemIndex, item.ItemImage, item.name, description);
+        }
+
+        private string PrepareDescription(InventoryItem inventoryItem)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(inventoryItem.item.Description);
+            sb.AppendLine();
+            for (int i = 0; i < inventoryItem.itemState.Count; i++)
+            {
+                sb.Append($"{inventoryItem.itemState[i].itemParameter.ParameterName}" +
+                    $": {inventoryItem.itemState[i].value} / " +
+                    $"{inventoryItem.item.DefaultParametersList[i].value}");
+                sb.AppendLine();
+            }
+            return sb.ToString();
+           
         }
 
         public void Update()
@@ -99,6 +154,7 @@ namespace Inventory
                 if (inventoryUI.isActiveAndEnabled == false)
                 {
                     inventoryUI.Show();
+                    Time.timeScale = 0f;
                     foreach (var item in inventoryData.GetCurrentInventoryState())
                     {
                         inventoryUI.UpdateData(item.Key,
@@ -109,6 +165,7 @@ namespace Inventory
                 else
                 {
                     inventoryUI.Hide();
+                    Time.timeScale = 1f;
                 }
             }
         }

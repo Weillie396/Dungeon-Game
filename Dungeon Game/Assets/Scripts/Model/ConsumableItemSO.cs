@@ -13,7 +13,7 @@ namespace Inventory.Model
         private List<ModifierData> modifiersData = new List<ModifierData>();
         public string ActionName => "Consume";
 
-        public bool PerformAction(GameObject character)
+        public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
         {
             foreach (ModifierData data in modifiersData)
             {
@@ -32,7 +32,7 @@ namespace Inventory.Model
     {
         public string ActionName { get; }
 
-        bool PerformAction(GameObject character);
+        bool PerformAction(GameObject character, List<ItemParameter> itemState);
     }
 
     [Serializable]

@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
     // Resources for the game
 
     public List<Sprite> playerSprites;

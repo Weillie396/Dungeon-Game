@@ -44,6 +44,11 @@ public class Fighter : MonoBehaviour
         hitPoints += health;
         GameManager.instance.OnHitPointChange();
     }
+    public void AdjustMaxHeath(int health)
+    {
+        maxHitpoint += health;
+        GameManager.instance.OnHitPointChange();
+    }
     
 
     protected virtual void Death()
